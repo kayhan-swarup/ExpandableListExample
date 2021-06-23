@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -30,11 +31,19 @@ public class CustomListAdapter extends BaseExpandableListAdapter {
     TagContainerLayout containerLayout;
     List<String> titles = new ArrayList<>();
     HashMap<String, List<SubCategory>> sub =new HashMap<>();
-
+    ScrollView scroll;
     List<Category> categories = new ArrayList<>();
 
     SelectListener listener;
 
+
+    public ScrollView getScroll() {
+        return scroll;
+    }
+
+    public void setScroll(ScrollView scroll) {
+        this.scroll = scroll;
+    }
 
     public TagContainerLayout getContainerLayout() {
         return containerLayout;
@@ -127,6 +136,11 @@ public class CustomListAdapter extends BaseExpandableListAdapter {
                 }
                 i++;
             }
+        }
+        if(containerLayout.size()==0){
+            scroll.setVisibility(View.GONE);
+        }else if(containerLayout.size()>0&&scroll.getVisibility()==View.GONE){
+            scroll.setVisibility(View.VISIBLE);
         }
 
     }

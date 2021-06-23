@@ -6,6 +6,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ExpandableListView;
+import android.widget.ScrollView;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements SelectListener {
         setContentView(R.layout.activity_main);
         listView = findViewById(R.id.list);
         containerLayout = findViewById(R.id.containerLayout);
+        scroll = findViewById(R.id.scroll);
         ApiClient.getInstance().getData(new Listener<CategoryResponse>() {
             @Override
             public void onResponse(CategoryResponse response) {
@@ -39,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements SelectListener {
     }
 
 
-
+    ScrollView scroll;
     ExpandableListView listView;
     String TAG = "Doodle";
     CustomListAdapter adapter;
@@ -50,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements SelectListener {
         Log.i(TAG,"Found response");
         adapter = new CustomListAdapter(response);
         adapter.setContainerLayout(containerLayout);
+        adapter.setScroll(scroll);
         adapter.setListener(this);
         listView .setAdapter(adapter);
     }
